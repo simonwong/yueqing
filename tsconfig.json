@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "ES5",
+    "lib": ["ESNext"],
+    "removeComments": true,
+    "declaration": true,
+    "sourceMap": false,
+    "skipLibCheck": true,
+
+    /* Strict Type-Checking Options */
+    "strict": true,
+
+    /* Module Resolution Options */
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+
+    /* Experimental Options */
+    "experimentalDecorators": true
+  }
+}
