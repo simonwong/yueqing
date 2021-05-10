@@ -2,7 +2,7 @@
   "compilerOptions": {
     /* Basic Options */
     "target": "ES5",
-    "lib": ["ESNext"],
+    "module": "CommonJS",
     "removeComments": true,
     "declaration": true,
     "sourceMap": false,

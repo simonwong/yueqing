@@ -1,3 +1,4 @@
+import webpack from 'webpack'
 import { PATHS, config } from './common'
 
 config.mode('development')
@@ -11,7 +12,11 @@ config.devServer
   .hot(true)
   .inline(true)
   .overlay(true)
-  .quiet(true)
+  .quiet(false)
+
+config
+  .plugin('HotModuleReplacementPlugin')
+  .use(webpack.HotModuleReplacementPlugin)
 
 const developConfig = config.toConfig()
 
