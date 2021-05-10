@@ -7,6 +7,7 @@
   "scripts": {
     "prepare": "husky install",
     "build": "lerna run build",
+    "release": "lerna publish",
     "lint": "eslint --ext .js,.ts --format=pretty ./packages",
     "lint:fix": "eslint --fix --ext .js,.ts --format=pretty ./packages"
   },
