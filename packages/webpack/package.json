@@ -7,10 +7,15 @@
   "author": "Simon <wsj_simon@163.com>",
   "license": "MIT",
   "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "access": "public"
   },
-  "bin": "./lib/index.js",
+  "bin": {
+    "yq-webpack": "./bin/yq-webpack.js"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ],
   "scripts": {
     "build": "rm -rf ./lib && tsc && cp ./src/build/template.html ./lib/build/template.html"
   },
