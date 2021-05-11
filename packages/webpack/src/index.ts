@@ -32,6 +32,9 @@ function init() {
       webpack(prodConfig, (err, stats) => {
         if (err || stats?.hasErrors()) {
           console.error(err)
+          stats?.toJson().errors?.forEach(error => {
+            console.warn(error.message)
+          })
           process.exit(1)
         }
         if (stats?.hasWarnings && stats?.toJson().warnings) {
