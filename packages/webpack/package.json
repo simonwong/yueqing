@@ -1,6 +1,6 @@
 {
   "name": "@yueqing/webpack",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "out-of-box webpack config cli",
   "main": "./lib/index.js",
   "repository": {
