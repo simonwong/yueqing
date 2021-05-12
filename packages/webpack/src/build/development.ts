@@ -3,7 +3,8 @@ import { PATHS, config } from './common'
 
 config.mode('development')
 
-config.devtool('inline-source-map')
+// https://www.webpackjs.com/guides/build-performance/#devtool
+config.devtool('cheap-module-eval-source-map')
 
 config.devServer
   .open(true)
@@ -24,6 +25,12 @@ config.module
 config
   .plugin('HotModuleReplacementPlugin')
   .use(webpack.HotModuleReplacementPlugin)
+
+config
+  .plugin('DefinePlugin')
+  .use(webpack.DefinePlugin, [
+    { 'process.env.NODE_ENV': JSON.stringify('development') },
+  ])
 
 const developConfig = config.toConfig()
 

@@ -4,6 +4,6 @@ module.exports = {
     project: './tsconfig.json',
   },
   rules: {
-    // custom rules
+    'no-console': 0,
   },
 }
