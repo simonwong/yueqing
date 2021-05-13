@@ -5,8 +5,7 @@ import WebpackDevServer from 'webpack-dev-server'
 import chalk from 'chalk'
 import { getPkg } from './utils'
 
-import devConfig from './build/development'
-import prodConfig from './build/production'
+import { getConfig } from './build/getConfig'
 
 const pkg = getPkg()
 
@@ -21,8 +20,18 @@ function init() {
     .description('Run your app on development environment')
     .action(() => {
       console.log(`\nStarting development server...\n`)
-      const compiler = webpack(devConfig)
-      const devServerOptions = { ...devConfig.devServer }
+      const config = getConfig({ env: 'development' })
+      let compiler
+      try {
+        compiler = webpack(config)
+      } catch (e) {
+        console.log(chalk.red(e.stack))
+      }
+      if (!compiler) {
+        return
+      }
+
+      const devServerOptions = { ...config.devServer }
       const server = new WebpackDevServer(compiler, devServerOptions)
       const httpServer = server.listen(PORT, '127.0.0.1', () => {
         console.log(
@@ -40,19 +49,28 @@ function init() {
     .command('build')
     .description('Build your app')
     .action(() => {
-      webpack(prodConfig, (err, stats) => {
-        if (err || stats?.hasErrors()) {
-          console.log(chalk.red(err))
-          stats?.toJson().errors?.forEach(error => {
+      const config = getConfig({ env: 'production' })
+      webpack(config, (err: any, stats) => {
+        if (err) {
+          console.log(chalk.red(err.stack || err))
+          if (err.details) {
+            console.log(chalk.red(err.details))
+          }
+          process.exit(1)
+        }
+        const info = stats?.toJson()
+        if (stats?.hasErrors()) {
+          info?.errors?.forEach(error => {
             console.log(chalk.red(error.message))
           })
           process.exit(1)
         }
-        if (stats?.hasWarnings && stats?.toJson().warnings) {
-          stats?.toJson().warnings?.forEach(warn => {
+        if (stats?.hasWarnings()) {
+          info?.warnings?.forEach(warn => {
             console.log(chalk.yellow(warn.message))
           })
         }
+
         console.log(`\n${chalk.cyan('🌈 Build successfully!')}\n`)
       })
     })
