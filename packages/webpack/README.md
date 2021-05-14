@@ -27,3 +27,24 @@ yq-webpack start
 ```shell
 yq-webpack build
 ```
+
+## Custom Config
+
+Add `yueqing.config.js` at your project root.
+
+```js
+module.exports = {
+  //.. config
+}
+```
+
+### [alias](https://webpack.js.org/configuration/resolve/#resolvealias)
+
+**Default**
+
+```js
+{
+  '@': path.join(process.env.PWD, './src'),
+  'react-dom': '@hot-loader/react-dom',
+}
+```
