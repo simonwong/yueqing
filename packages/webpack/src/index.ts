@@ -1,13 +1,31 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
 import webpack from 'webpack'
+import path from 'path'
+import fs from 'fs'
 import WebpackDevServer from 'webpack-dev-server'
 import chalk from 'chalk'
 import { getPkg } from './utils'
 
 import { getConfig } from './build/getConfig'
+import { workPath } from './build/base'
 
 const pkg = getPkg()
+
+function getLocalConfig() {
+  const yueqingConfigPath = path.join(workPath, 'yueqing.config.js')
+  if (fs.existsSync(yueqingConfigPath)) {
+    try {
+      // eslint-disable-next-line import/no-dynamic-require, global-require
+      const localConfig = require(yueqingConfigPath)
+      return localConfig
+      // eslint-disable-next-line no-empty
+    } catch (e) {
+      console.log(chalk.red(e.stack))
+    }
+  }
+  return {}
+}
 
 function init() {
   const program = new Command()
@@ -15,12 +33,15 @@ function init() {
 
   const PORT = 8080
 
+  const localConfig = getLocalConfig()
+
   program
     .command('start')
     .description('Run your app on development environment')
     .action(() => {
       console.log(`\nStarting development server...\n`)
-      const config = getConfig({ env: 'development' })
+      const config = getConfig({ env: 'development', ...localConfig })
+
       let compiler
       try {
         compiler = webpack(config)
@@ -49,7 +70,7 @@ function init() {
     .command('build')
     .description('Build your app')
     .action(() => {
-      const config = getConfig({ env: 'production' })
+      const config = getConfig({ env: 'production', ...localConfig })
       webpack(config, (err: any, stats) => {
         if (err) {
           console.log(chalk.red(err.stack || err))

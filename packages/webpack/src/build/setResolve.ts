@@ -2,10 +2,19 @@ import path from 'path'
 import { SetConfigHelpParams, PATHS } from './base'
 
 export const setResolve: () => SetConfigHelpParams = () => ({
-  common: config => {
+  common: (config, envConf) => {
+    // === set extensions ===
     config.resolve.extensions.add('.js').add('.ts').add('.jsx').add('.tsx')
-    config.resolve.alias
-      .set('@', path.join(PATHS.src))
-      .set('react-dom', '@hot-loader/react-dom')
+
+    // === set alias ===
+    const alias = {
+      '@': path.join(PATHS.src),
+      'react-dom': '@hot-loader/react-dom',
+      ...envConf.alias,
+    }
+
+    Object.entries(alias).forEach(([key, value]) => {
+      config.resolve.alias.set(key, value)
+    })
   },
 })
