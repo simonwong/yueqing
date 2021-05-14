@@ -4,6 +4,9 @@ import path from 'path'
 
 export type EnvConfig = {
   env: 'development' | 'production'
+  alias?: {
+    [key: string]: string
+  }
 }
 
 export type GetConfig = (envConf: EnvConfig) => webpack.Configuration
