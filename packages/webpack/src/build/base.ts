@@ -1,6 +1,7 @@
 import Config from 'webpack-chain'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import WebpackDevServer from 'webpack-dev-server'
 import path from 'path'
 
 export type EnvConfig = {
@@ -9,6 +10,7 @@ export type EnvConfig = {
   alias?: {
     [key: string]: string
   }
+  devServer?: WebpackDevServer.Configuration
   // HtmlWebpackPlugin Config
   htmlWebpack?: HtmlWebpackPlugin.Options
 }
