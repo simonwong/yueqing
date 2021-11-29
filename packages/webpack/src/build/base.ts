@@ -1,12 +1,16 @@
 import Config from 'webpack-chain'
 import webpack from 'webpack'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import path from 'path'
 
 export type EnvConfig = {
   env: 'development' | 'production'
+  entry?: string
   alias?: {
     [key: string]: string
   }
+  // HtmlWebpackPlugin Config
+  htmlWebpack?: HtmlWebpackPlugin.Options
 }
 
 export type GetConfig = (envConf: EnvConfig) => webpack.Configuration

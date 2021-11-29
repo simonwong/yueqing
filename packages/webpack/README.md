@@ -38,6 +38,14 @@ module.exports = {
 }
 ```
 
+### [entry](https://webpack.js.org/configuration/entry-context/#entry)
+
+**Default**
+
+```js
+path.join(__dirname, './template.ejs')
+```
+
 ### [alias](https://webpack.js.org/configuration/resolve/#resolvealias)
 
 **Default**
@@ -46,5 +54,25 @@ module.exports = {
 {
   '@': path.join(process.env.PWD, './src'),
   'react-dom': '@hot-loader/react-dom',
+}
+```
+
+### [htmlWebpack](https://github.com/jantimon/html-webpack-plugin#options)
+
+**Default**
+
+```js
+{
+  title: 'YueQing',
+  inject: 'body',
+  meta: {
+    charset: 'UTF-8',
+    viewport: 'width=device-width, initial-scale=1.0',
+    'Content-Security-Policy': {
+      'http-equiv': 'X-UA-Compatible',
+      content: 'ie=edge',
+    },
+  },
+  template: path.join(__dirname, './template.ejs'),
 }
 ```
