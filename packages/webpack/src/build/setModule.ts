@@ -23,8 +23,8 @@ export const setModule: () => SetConfigHelpParams = () => ({
           'react-hot-loader/babel',
           '@babel/plugin-transform-runtime',
           ['@babel/plugin-proposal-decorators', { legacy: true }],
-          ['@babel/plugin-proposal-class-properties', { loose: true }],
-          ['@babel/plugin-proposal-private-methods', { loose: true }],
+          ['@babel/plugin-proposal-class-properties', { loose: false }],
+          ['@babel/plugin-proposal-private-methods', { loose: false }],
         ],
       })
 
@@ -59,8 +59,7 @@ export const setModule: () => SetConfigHelpParams = () => ({
         // eslint-disable-next-line global-require
         implementation: require('sass'),
         sassOptions: {
-          // eslint-disable-next-line global-require
-          fiber: require('fibers'),
+          fiber: false,
         },
       })
 

@@ -7,7 +7,7 @@ export const setBasic: () => SetConfigHelpParams = () => ({
     config
       .entry('app')
       .add('react-hot-loader/patch')
-      .add(path.join(PATHS.src, 'index'))
+      .add(envConf.entry || path.join(PATHS.src, 'index'))
       .end()
       .output.path(PATHS.dist)
 

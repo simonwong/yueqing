@@ -9,21 +9,26 @@ import Webpackbar from 'webpackbar'
 import { SetConfigHelpParams } from './base'
 
 export const setPlugins: () => SetConfigHelpParams = () => ({
-  common: config => {
+  common: (config, userConfig) => {
+    const defaultHtmlMeta = {
+      charset: 'UTF-8',
+      viewport: 'width=device-width, initial-scale=1.0',
+      'Content-Security-Policy': {
+        'http-equiv': 'X-UA-Compatible',
+        content: 'ie=edge',
+      },
+    }
     config.plugin('html-webpack-plugin').use(HtmlWebpackPlugin, [
       {
         title: 'YueQing',
         inject: 'body',
-        meta: {
-          charset: 'UTF-8',
-          viewport: 'width=device-width, initial-scale=1.0',
-          'Content-Security-Policy': {
-            'http-equiv': 'X-UA-Compatible',
-            content: 'ie=edge',
-          },
-        },
-        template: path.join(__dirname, './template.ejs'),
         // TODO: if not has favicon favicon: path.join(PATHS.public, 'favicon.ico'),
+        template: path.join(__dirname, './template.ejs'),
+        ...userConfig.htmlWebpack,
+        meta: {
+          ...defaultHtmlMeta,
+          ...userConfig.htmlWebpack?.meta,
+        },
       },
     ])
 

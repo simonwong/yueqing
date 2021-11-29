@@ -19,9 +19,8 @@ function getLocalConfig() {
       // eslint-disable-next-line import/no-dynamic-require, global-require
       const localConfig = require(yueqingConfigPath)
       return localConfig
-      // eslint-disable-next-line no-empty
     } catch (e) {
-      console.log(chalk.red(e.stack))
+      console.log(chalk.red((e as Error).stack))
     }
   }
   return {}
@@ -38,7 +37,7 @@ function init() {
   program
     .command('start')
     .description('Run your app on development environment')
-    .action(() => {
+    .action(async () => {
       console.log(`\nStarting development server...\n`)
       const config = getConfig({ env: 'development', ...localConfig })
 
@@ -46,24 +45,21 @@ function init() {
       try {
         compiler = webpack(config)
       } catch (e) {
-        console.log(chalk.red(e.stack))
+        console.log(chalk.red((e as Error).stack))
       }
       if (!compiler) {
         return
       }
 
-      const devServerOptions = { ...config.devServer }
-      const server = new WebpackDevServer(compiler, devServerOptions)
-      const httpServer = server.listen(PORT, '127.0.0.1', () => {
-        console.log(
-          `\nStarting server on ${chalk.cyan(`http://localhost:${PORT}`)}\n`,
-        )
-      })
-
-      httpServer.on('error', () => {
-        server.close()
-        console.log(`\n${chalk.red('Development server error')}`)
-      })
+      const devServerOptions: WebpackDevServer.Configuration = {
+        ...config.devServer,
+        port: PORT,
+      }
+      const server = new WebpackDevServer(devServerOptions, compiler)
+      await server.start()
+      console.log(
+        `\nStarting server on ${chalk.cyan(`http://localhost:${PORT}`)}\n`,
+      )
     })
 
   program
