@@ -1,3 +1,4 @@
+import WebpackDevServer from 'webpack-dev-server'
 import Config from 'webpack-chain'
 import path from 'path'
 import { SetConfigHelpParams, PATHS } from './base'
@@ -13,17 +14,16 @@ export const setBasic: () => SetConfigHelpParams = () => ({
 
     config.mode(envConf.env)
   },
-  development: config => {
+  development: (config, userConfig) => {
     // https://www.webpackjs.com/guides/build-performance/#devtool
     config.devtool('eval-cheap-module-source-map' as Config.DevTool)
-    config.devServer
-      .open(true)
-      .contentBase(PATHS.dist)
-      .historyApiFallback(true)
-      .hot(true)
-      .inline(true)
-      .overlay(true)
-      .quiet(false)
+    config.merge({
+      devServer: {
+        historyApiFallback: true,
+        hot: true,
+        ...userConfig.devServer,
+      } as WebpackDevServer.Configuration,
+    })
   },
   production: config => {
     config.devtool('source-map')
