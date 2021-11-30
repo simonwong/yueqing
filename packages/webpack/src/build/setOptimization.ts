@@ -1,12 +1,14 @@
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import TerserPlugin from 'terser-webpack-plugin'
-import { SetConfigHelpParams } from './base'
+import { SetConfigHelp } from './interface'
 
-export const setOptimization: () => SetConfigHelpParams = () => ({
-  production: config => {
-    config.optimization.minimize(true)
-    config.optimization.minimizer('css').use(CssMinimizerPlugin)
-    config.optimization.minimizer('js').use(TerserPlugin)
-  },
+export const setOptimization: () => SetConfigHelp = () => ({
+  development: () => ({}),
+  production: () => ({
+    optimization: {
+      minimize: true,
+      minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+    },
+  }),
 })

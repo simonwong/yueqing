@@ -28,6 +28,20 @@ yq-webpack start
 yq-webpack build
 ```
 
+## CLI command
+
+### `yq-webpack`
+
+- --version, -V  get yq-webpack version
+
+### `yq-webpack start`
+
+--
+
+### `yq-webpack build`
+
+--
+
 ## Custom Config
 
 Add `yueqing.config.js` at your project root.

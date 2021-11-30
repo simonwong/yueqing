@@ -56,10 +56,8 @@
     "terser-webpack-plugin": "^5.2.5",
     "url-loader": "^4.1.1",
     "webpack": "^5.64.4",
-    "webpack-chain": "^6.5.1",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.6.0",
-    "webpackbar": "^5.0.2"
+    "webpack-dev-server": "^4.6.0"
   },
   "devDependencies": {
     "@types/mini-css-extract-plugin": "^2.4.0",
