@@ -26,70 +26,85 @@ function getLocalConfig() {
   return {}
 }
 
+const cliVersion = `yq-webpack@${pkg.version}:`
+
+export const developmentBuildWithDevServer = async () => {
+  const PORT = 8080
+  const localConfig = getLocalConfig()
+
+  console.log(`\nStarting development server...\n`)
+
+  process.env.NODE_ENV = 'development'
+  const config = getConfig({ env: 'development', ...localConfig })
+
+  let compiler
+  try {
+    compiler = webpack(config)
+  } catch (e) {
+    console.log(chalk.red((e as Error).stack))
+  }
+  if (!compiler) {
+    return
+  }
+
+  const devServerOptions: WebpackDevServer.Configuration = {
+    ...config.devServer,
+    port: PORT,
+  }
+  const server = new WebpackDevServer(devServerOptions, compiler)
+  await server.start()
+  console.log(
+    `\n${cliVersion} Starting server on ${chalk.cyan(
+      `http://localhost:${PORT}`,
+    )}\n`,
+  )
+}
+
+export const productionBuild = () => {
+  const localConfig = getLocalConfig()
+  process.env.NODE_ENV = 'production'
+  const config = getConfig({ env: 'production', ...localConfig })
+  webpack(config, (err: any, stats) => {
+    if (err) {
+      console.log(chalk.red(err.stack || err))
+      if (err.details) {
+        console.log(chalk.red(err.details))
+      }
+      process.exit(1)
+    }
+    const info = stats?.toJson()
+    if (stats?.hasErrors()) {
+      info?.errors?.forEach(error => {
+        console.log(chalk.red(error.message))
+      })
+      process.exit(1)
+    }
+    if (stats?.hasWarnings()) {
+      info?.warnings?.forEach(warn => {
+        console.log(chalk.yellow(warn.message))
+      })
+    }
+
+    console.log(`\n${cliVersion} ${chalk.cyan('🌈 Build successfully!')}\n`)
+  })
+}
+
 function init() {
   const program = new Command()
   program.version(pkg.version)
 
-  const PORT = 8080
-
-  const localConfig = getLocalConfig()
-
   program
     .command('start')
     .description('Run your app on development environment')
-    .action(async () => {
-      console.log(`\nStarting development server...\n`)
-      const config = getConfig({ env: 'development', ...localConfig })
-
-      let compiler
-      try {
-        compiler = webpack(config)
-      } catch (e) {
-        console.log(chalk.red((e as Error).stack))
-      }
-      if (!compiler) {
-        return
-      }
-
-      const devServerOptions: WebpackDevServer.Configuration = {
-        ...config.devServer,
-        port: PORT,
-      }
-      const server = new WebpackDevServer(devServerOptions, compiler)
-      await server.start()
-      console.log(
-        `\nStarting server on ${chalk.cyan(`http://localhost:${PORT}`)}\n`,
-      )
+    .action(() => {
+      developmentBuildWithDevServer()
     })
 
   program
     .command('build')
     .description('Build your app')
     .action(() => {
-      const config = getConfig({ env: 'production', ...localConfig })
-      webpack(config, (err: any, stats) => {
-        if (err) {
-          console.log(chalk.red(err.stack || err))
-          if (err.details) {
-            console.log(chalk.red(err.details))
-          }
-          process.exit(1)
-        }
-        const info = stats?.toJson()
-        if (stats?.hasErrors()) {
-          info?.errors?.forEach(error => {
-            console.log(chalk.red(error.message))
-          })
-          process.exit(1)
-        }
-        if (stats?.hasWarnings()) {
-          info?.warnings?.forEach(warn => {
-            console.log(chalk.yellow(warn.message))
-          })
-        }
-
-        console.log(`\n${chalk.cyan('🌈 Build successfully!')}\n`)
-      })
+      productionBuild()
     })
 
   program.parse(process.argv)

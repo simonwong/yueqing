@@ -1,20 +1,21 @@
 import path from 'path'
-import { SetConfigHelpParams, PATHS } from './base'
+import { PATHS } from './base'
+import { SetConfigHelp, UserConfig } from './interface'
 
-export const setResolve: () => SetConfigHelpParams = () => ({
-  common: (config, envConf) => {
-    // === set extensions ===
-    config.resolve.extensions.add('.js').add('.ts').add('.jsx').add('.tsx')
-
-    // === set alias ===
-    const alias = {
-      '@': path.join(PATHS.src),
-      'react-dom': '@hot-loader/react-dom',
-      ...envConf.alias,
-    }
-
-    Object.entries(alias).forEach(([key, value]) => {
-      config.resolve.alias.set(key, value)
-    })
+const getResolveBase = (userConfig: UserConfig) => ({
+  extensions: ['.js', '.ts', '.jsx', '.tsx'],
+  alias: {
+    '@': path.join(PATHS.src),
+    'react-dom': '@hot-loader/react-dom',
+    ...userConfig.alias,
   },
+})
+
+export const setResolve: () => SetConfigHelp = () => ({
+  development: userConfig => ({
+    resolve: getResolveBase(userConfig),
+  }),
+  production: userConfig => ({
+    resolve: getResolveBase(userConfig),
+  }),
 })

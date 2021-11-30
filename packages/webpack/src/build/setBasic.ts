@@ -1,34 +1,42 @@
-import WebpackDevServer from 'webpack-dev-server'
-import Config from 'webpack-chain'
 import path from 'path'
-import { SetConfigHelpParams, PATHS } from './base'
+import { PATHS } from './base'
+import { SetConfigHelp, GetConfig } from './interface'
 
-export const setBasic: () => SetConfigHelpParams = () => ({
-  common: (config, envConf) => {
-    config
-      .entry('app')
-      .add('react-hot-loader/patch')
-      .add(envConf.entry || path.join(PATHS.src, 'index'))
-      .end()
-      .output.path(PATHS.dist)
-
-    config.mode(envConf.env)
+const getBasicBase: GetConfig = userConfig => ({
+  entry: {
+    app: [
+      require.resolve('react-hot-loader/patch'),
+      userConfig.entry || path.join(PATHS.src, 'index'),
+    ],
   },
-  development: (config, userConfig) => {
+  output: {
+    path: PATHS.dist,
+  },
+  mode: userConfig.env,
+})
+
+export const setBasic: () => SetConfigHelp = () => ({
+  development: userConfig => ({
+    ...getBasicBase(userConfig),
     // https://www.webpackjs.com/guides/build-performance/#devtool
-    config.devtool('eval-cheap-module-source-map' as Config.DevTool)
-    config.merge({
-      devServer: {
-        historyApiFallback: true,
-        hot: true,
-        ...userConfig.devServer,
-      } as WebpackDevServer.Configuration,
-    })
-  },
-  production: config => {
-    config.devtool('source-map')
-    config.output
-      .filename('[name].[contenthash:8].js')
-      .chunkFilename('chunk.[contenthash:8].js')
+    devtool: 'eval-cheap-module-source-map',
+    devServer: {
+      historyApiFallback: true,
+      hot: true,
+      ...userConfig.devServer,
+    },
+  }),
+  production: userConfig => {
+    const { output, ...common } = getBasicBase(userConfig)
+
+    return {
+      ...common,
+      devtool: 'source-map',
+      output: {
+        ...output,
+        filename: '[name].[contenthash:8].js',
+        chunkFilename: 'chunk.[contenthash:8].js',
+      },
+    }
   },
 })
