@@ -1,8 +1,9 @@
-import webpack from 'webpack'
+import { Configuration } from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import WebpackDevServer from 'webpack-dev-server'
 
 export type UserConfig = {
+  target: Configuration['target']
   env: 'development' | 'production'
   entry?: string
   alias?: {
@@ -13,7 +14,7 @@ export type UserConfig = {
   htmlWebpack?: HtmlWebpackPlugin.Options
 }
 
-export type GetConfig = (userConfig: UserConfig) => webpack.Configuration
+export type GetConfig = (userConfig: UserConfig) => Configuration
 
 export type SetConfigHelp = {
   development: GetConfig

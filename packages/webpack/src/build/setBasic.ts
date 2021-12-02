@@ -4,10 +4,7 @@ import { SetConfigHelp, GetConfig } from './interface'
 
 const getBasicBase: GetConfig = userConfig => ({
   entry: {
-    app: [
-      require.resolve('react-hot-loader/patch'),
-      userConfig.entry || path.join(PATHS.src, 'index'),
-    ],
+    app: [userConfig.entry || path.join(PATHS.src, 'index')],
   },
   output: {
     path: PATHS.dist,
