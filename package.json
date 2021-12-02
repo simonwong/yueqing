@@ -9,9 +9,10 @@
     "prepare": "husky install",
     "build": "pnpm build --filter \"@yueqing/*\"",
     "test": "pnpm test --filter \"@yueqing/*\"",
-    "release": "lerna publish",
     "lint": "eslint --ext .js,.ts --format=pretty ./packages",
-    "lint:fix": "eslint --fix --ext .js,.ts --format=pretty ./packages"
+    "lint:fix": "eslint --fix --ext .js,.ts --format=pretty ./packages",
+    "ci:version": "changeset version && pnpm install --frozen-lockfile false",
+    "ci:publish": "pnpm build && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.18.1",

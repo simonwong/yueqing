@@ -15,6 +15,8 @@ pnpm changeset
 
 ## Publish
 
+**consumes all changesets, change version and changelog**
+
 ```shell
 # change version and changelog
 pnpm changeset version
@@ -23,7 +25,14 @@ pnpm changeset version
 pnpm install
 
 # add commit
+```
+
+**publish**
+
+```shell
+# build
+pnpm build
 
 # publish
-pnpm publish -r
+pnpm changeset publish
 ```
