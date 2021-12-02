@@ -52,6 +52,14 @@ module.exports = {
 }
 ```
 
+### [target](https://webpack.js.org/configuration/target/#target)
+
+**Default**
+
+```js
+'web'
+```
+
 ### [entry](https://webpack.js.org/configuration/entry-context/#entry)
 
 **Default**
