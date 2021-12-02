@@ -6,7 +6,6 @@ const getResolveBase = (userConfig: UserConfig) => ({
   extensions: ['.js', '.ts', '.jsx', '.tsx'],
   alias: {
     '@': path.join(PATHS.src),
-    'react-dom': '@hot-loader/react-dom',
     ...userConfig.alias,
   },
 })

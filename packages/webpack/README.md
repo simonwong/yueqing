@@ -67,7 +67,6 @@ path.join(__dirname, './template.ejs')
 ```js
 {
   '@': path.join(process.env.PWD, './src'),
-  'react-dom': '@hot-loader/react-dom',
 }
 ```
 

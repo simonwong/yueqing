@@ -22,12 +22,13 @@ const getModuleBase = (
             '@babel/preset-react',
           ],
           plugins: [
-            'react-hot-loader/babel',
+            userConfig.env === 'development' &&
+              require.resolve('react-refresh/babel'),
             '@babel/plugin-transform-runtime',
             ['@babel/plugin-proposal-decorators', { legacy: true }],
             ['@babel/plugin-proposal-class-properties', { loose: false }],
             ['@babel/plugin-proposal-private-methods', { loose: false }],
-          ],
+          ].filter(Boolean),
         },
       },
     ],
