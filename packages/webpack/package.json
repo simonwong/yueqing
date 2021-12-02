@@ -37,7 +37,7 @@
     "@hot-loader/react-dom": "^17.0.1",
     "autoprefixer": "^10.4.0",
     "babel-loader": "^8.2.3",
-    "chalk": "4.x",
+    "chalk": "5.x",
     "clean-webpack-plugin": "^4.0.0",
     "commander": "^8.3.0",
     "css-loader": "^6.5.1",
