@@ -3,7 +3,7 @@ const WebpackDevServer = require('webpack-dev-server')
 const path = require('path')
 const { getConfig } = require('../lib/build/getConfig')
 
-const entry = path.join(__dirname, './src/index.js')
+const entry = path.join(__dirname, './src/index.jsx')
 
 const testDev = async () => {
   console.log('Start test in development')
@@ -37,28 +37,33 @@ const testProd = () => {
 
   compiler.run((err, stats) => {
     if (err) {
-      console.error(err.stack || err)
+      console.error('compiler.run', err.stack || err)
       if (err.details) {
-        console.error(err.details)
+        console.error('compiler.run', err.details)
       }
-      return
+      process.exit(1)
     }
 
     const info = stats.toJson()
 
     if (stats.hasErrors()) {
-      console.error(info.errors)
+      console.error('compiler#stats Errors', info.errors)
+      process.exit(1)
     }
 
     if (stats.hasWarnings()) {
-      console.warn(info.warnings)
+      console.warn('compiler#stats Warnings', info.warnings)
+      process.exit(1)
     }
 
     compiler.close(closeErr => {
-      console.log(`closeErr`, closeErr)
+      if (closeErr) {
+        console.log(`compiler.close`, closeErr)
+      } else {
+        console.log('Production test success!')
+      }
     })
   })
-  console.log('Production test success!')
 }
 
 const main = async () => {
