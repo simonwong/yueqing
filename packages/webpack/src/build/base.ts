@@ -1,7 +1,6 @@
 import path from 'path'
 
-// TODO: remove process.env.PWD
-export const workPath = process.env.PWD || process.cwd()
+export const workPath = process.cwd()
 
 export const PATHS = {
   build: workPath,
