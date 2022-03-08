@@ -1,20 +1,20 @@
 import path from 'path'
-import { PATHS } from './base'
-import { SetConfigHelp, UserConfig } from './interface'
+import { PATHS } from '../helper'
+import { SetConfigHelp, ConfigContext } from '../interface'
 
-const getResolveBase = (userConfig: UserConfig) => ({
+const getResolveBase = (ctx: ConfigContext) => ({
   extensions: ['.js', '.ts', '.jsx', '.tsx'],
   alias: {
     '@': path.join(PATHS.src),
-    ...userConfig.alias,
+    ...ctx.userConfig.alias,
   },
 })
 
 export const setResolve: () => SetConfigHelp = () => ({
-  development: userConfig => ({
-    resolve: getResolveBase(userConfig),
+  development: ctx => ({
+    resolve: getResolveBase(ctx),
   }),
-  production: userConfig => ({
-    resolve: getResolveBase(userConfig),
+  production: ctx => ({
+    resolve: getResolveBase(ctx),
   }),
 })

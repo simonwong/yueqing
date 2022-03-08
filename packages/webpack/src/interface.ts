@@ -3,8 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import WebpackDevServer from 'webpack-dev-server'
 
 export type UserConfig = {
-  target: Configuration['target']
-  env: 'development' | 'production'
+  target?: Configuration['target']
   entry?: string
   alias?: {
     [key: string]: string
@@ -14,7 +13,19 @@ export type UserConfig = {
   htmlWebpack?: HtmlWebpackPlugin.Options
 }
 
-export type GetConfig = (userConfig: UserConfig) => Configuration
+export type GetEnvConfig = () => Configuration
+
+export type NodeEnv = 'development' | 'production'
+
+export type ConfigContext = {
+  nodeEnv: NodeEnv
+  useTypescript: boolean
+  isDevelopmentEnv: boolean
+  isProductionEnv: boolean
+  userConfig: UserConfig
+}
+
+export type GetConfig = (ctx: ConfigContext) => Configuration
 
 export type SetConfigHelp = {
   development: GetConfig

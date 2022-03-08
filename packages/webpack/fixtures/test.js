@@ -8,8 +8,12 @@ const entry = path.join(__dirname, './src/index.jsx')
 const testDev = async () => {
   console.log('Start test in development')
   const config = getConfig({
-    entry,
-    env: 'production',
+    userConfig: {
+      entry,
+    },
+    nodeEnv: 'development',
+    isDevelopmentEnv: true,
+    isProductionEnv: false,
   })
 
   const compiler = webpack(config)
@@ -29,8 +33,12 @@ const testDev = async () => {
 const testProd = () => {
   console.log('Start test in production')
   const config = getConfig({
-    entry,
-    env: 'production',
+    userConfig: {
+      entry,
+    },
+    nodeEnv: 'production',
+    isDevelopmentEnv: false,
+    isProductionEnv: true,
   })
 
   const compiler = webpack(config)

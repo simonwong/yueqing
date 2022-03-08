@@ -1,18 +1,19 @@
 import { RuleSetRule, RuleSetUseItem } from 'webpack'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import { SetConfigHelp, UserConfig } from './interface'
+import { SetConfigHelp, ConfigContext } from '../interface'
 
 const getModuleBase = (
-  userConfig: UserConfig,
+  ctx: ConfigContext,
   styleLoader: RuleSetUseItem,
 ): RuleSetRule[] => {
   // module
-  const jsxRule: RuleSetRule = {
-    test: /\.(j|t)sx?$/i,
+  const jsRule: RuleSetRule = {
+    test: /\.(js|mjs|jsx|ts|tsx)$/,
     exclude: /node_modules/,
     use: [
       {
         loader: require.resolve('babel-loader'),
+        // TODO: 抽成一个 babel preset
         options: {
           cacheDirectory: true,
           babelrc: false,
@@ -27,12 +28,19 @@ const getModuleBase = (
             ],
           ],
           plugins: [
-            userConfig.env === 'development' &&
-              require.resolve('react-refresh/babel'),
+            ctx.isDevelopmentEnv && require.resolve('react-refresh/babel'),
             '@babel/plugin-transform-runtime',
-            ['@babel/plugin-proposal-decorators', { legacy: true }],
-            ['@babel/plugin-proposal-class-properties', { loose: false }],
-            ['@babel/plugin-proposal-private-methods', { loose: false }],
+            // TC39 Proposals: 使用装饰器 @xxx
+            ['@babel/plugin-proposal-decorators', false],
+            // ES2022: 类属性 class Foo { name = 'foo'; static getName = ... }
+            ['@babel/plugin-proposal-class-properties', { loose: true }],
+            // ES2022: 私有属性 class Foo { #name = 'foo'; getName = () => this.#name }
+            [
+              '@babel/plugin-proposal-private-property-in-object',
+              { loose: true },
+            ],
+            // TC39 Proposals: 私有方法
+            ['@babel/plugin-proposal-private-methods', { loose: true }],
           ].filter(Boolean),
         },
       },
@@ -79,40 +87,37 @@ const getModuleBase = (
   }
 
   const imgRule: RuleSetRule = {
-    test: /\.(png|jpe?g|gif|webp|bmp)$/i,
-    exclude: /node_modules/,
-    use: [
-      {
-        loader: require.resolve('url-loader'),
-        options: {
-          options: {
-            // 小于这个是，会专成 base64 。大于，会使用 file-loader ，引用路径
-            limit: 8192,
-          },
-        },
+    test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+    type: 'asset',
+    parser: {
+      dataUrlCondition: {
+        maxSize: 8192,
       },
-    ],
+    },
   }
 
   const iconRule: RuleSetRule = {
-    test: /\.(eot|woff|ttf|woff2|svg)$/i,
+    test: /\.svg$/,
     use: [
+      {
+        loader: require.resolve('@svgr/webpack'),
+      },
       {
         loader: require.resolve('url-loader'),
       },
     ],
   }
 
-  return [jsxRule, styleRule, imgRule, iconRule]
+  return [jsRule, styleRule, imgRule, iconRule]
 }
 
 export const setModule: () => SetConfigHelp = () => ({
-  development: userConfig => {
+  development: ctx => {
     const styleLoader: RuleSetUseItem = {
       loader: require.resolve('style-loader'),
     }
 
-    const rules = getModuleBase(userConfig, styleLoader)
+    const rules = getModuleBase(ctx, styleLoader)
 
     return {
       module: {
@@ -120,11 +125,11 @@ export const setModule: () => SetConfigHelp = () => ({
       },
     }
   },
-  production: userConfig => {
+  production: ctx => {
     const styleLoader: RuleSetUseItem = {
       loader: MiniCssExtractPlugin.loader,
     }
-    const rules = getModuleBase(userConfig, styleLoader)
+    const rules = getModuleBase(ctx, styleLoader)
 
     return {
       module: {
