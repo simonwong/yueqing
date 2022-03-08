@@ -1,5 +1,15 @@
 # @yueqing/webpack
 
+## 1.4.0
+
+### Minor Changes
+
+- [`ff91253`](https://github.com/simonwong/yueqing/commit/ff912530458a38cfa5c8f09e0df704b5bbb4c2df) Thanks [@simonwong](https://github.com/simonwong)! - refactor config structure，fix old assets loader
+
+### Patch Changes
+
+- [`a7a526d`](https://github.com/simonwong/yueqing/commit/a7a526d3f31e80efa19e161b47ad3ee823c3da18) Thanks [@simonwong](https://github.com/simonwong)! - Update packages, remove deprecated packages
+
 ## 1.3.2
 
 ### Patch Changes
