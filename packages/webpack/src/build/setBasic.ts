@@ -3,8 +3,8 @@ import { PATHS } from '../helper'
 import { SetConfigHelp, GetConfig } from '../interface'
 
 const getBasicBase: GetConfig = ({ userConfig, nodeEnv }) => ({
-  entry: {
-    app: [userConfig.entry || path.join(PATHS.src, 'index')],
+  entry: userConfig.entry || {
+    app: path.join(PATHS.src, 'index'),
   },
   output: {
     path: PATHS.dist,

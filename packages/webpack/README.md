@@ -47,6 +47,9 @@ yq-webpack build
 Add `yueqing.config.js` at your project root.
 
 ```js
+/**
+ * @type {import('@yueqing/webpack/lib/interface').UserConfig}
+ */
 module.exports = {
   //.. config
 }
@@ -65,7 +68,11 @@ module.exports = {
 **Default**
 
 ```js
-path.join(__dirname, './template.ejs')
+{
+  app: [
+    path.join(__dirname, './template.ejs')
+  ]
+}
 ```
 
 ### [alias](https://webpack.js.org/configuration/resolve/#resolvealias)
