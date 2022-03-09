@@ -1,5 +1,11 @@
 # @yueqing/webpack
 
+## 1.4.1
+
+### Patch Changes
+
+- [`2564633`](https://github.com/simonwong/yueqing/commit/256463305e9732e0956d7d8118ed1f80015b6886) Thanks [@simonwong](https://github.com/simonwong)! - fix resolveApp resolve path
+
 ## 1.4.0
 
 ### Minor Changes
