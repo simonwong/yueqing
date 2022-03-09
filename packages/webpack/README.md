@@ -89,10 +89,6 @@ path.join(__dirname, './template.ejs')
   meta: {
     charset: 'UTF-8',
     viewport: 'width=device-width, initial-scale=1.0',
-    'Content-Security-Policy': {
-      'http-equiv': 'X-UA-Compatible',
-      content: 'ie=edge',
-    },
   },
   template: path.join(__dirname, './template.ejs'),
 }
