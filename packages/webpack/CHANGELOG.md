@@ -1,5 +1,11 @@
 # @yueqing/webpack
 
+## 1.4.2
+
+### Patch Changes
+
+- [`76e345f`](https://github.com/simonwong/yueqing/commit/76e345f7feda4d8c98ecf7cd81b22131e08594dc) Thanks [@simonwong](https://github.com/simonwong)! - change entry config
+
 ## 1.4.1
 
 ### Patch Changes
