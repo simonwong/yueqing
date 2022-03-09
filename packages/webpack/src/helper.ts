@@ -13,7 +13,7 @@ export const getPkg = () => {
 export const workPath = process.cwd()
 
 export const resolveApp = (relativePath: string) =>
-  path.resolve(relativePath, relativePath)
+  path.resolve(workPath, relativePath)
 
 export const PATHS = {
   build: workPath,
