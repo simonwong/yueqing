@@ -47,7 +47,7 @@ importers:
       '@svgr/webpack': ^6.2.1
       '@types/react': ^17.0.39
       '@types/react-dom': ^17.0.13
-      '@yueqing/babel-preset-react-app': workspace:^0.0.0
+      '@yueqing/babel-preset-react-app': workspace:^0.1.0
       autoprefixer: ^10.4.2
       babel-loader: ^8.2.3
       chalk: 4.x
