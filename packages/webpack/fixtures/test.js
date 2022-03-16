@@ -7,6 +7,7 @@ const entry = path.join(__dirname, './src/index.jsx')
 
 const testDev = async () => {
   console.log('Start test in development')
+  process.env.NODE_ENV = 'development'
   const config = getConfig({
     userConfig: {
       entry,
@@ -32,6 +33,7 @@ const testDev = async () => {
 
 const testProd = () => {
   console.log('Start test in production')
+  process.env.NODE_ENV = 'production'
   const config = getConfig({
     userConfig: {
       entry,

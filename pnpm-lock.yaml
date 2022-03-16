@@ -16,9 +16,8 @@ importers:
       husky: 7.0.4
       lint-staged: 12.3.5
 
-  packages/webpack:
+  packages/babel-preset-react-app:
     specifiers:
-      '@babel/cli': ^7.17.6
       '@babel/core': ^7.17.5
       '@babel/plugin-proposal-class-properties': ^7.16.7
       '@babel/plugin-proposal-decorators': ^7.17.2
@@ -29,10 +28,26 @@ importers:
       '@babel/preset-react': ^7.16.7
       '@babel/preset-typescript': ^7.16.7
       '@babel/runtime': ^7.17.2
+    dependencies:
+      '@babel/core': 7.17.5
+      '@babel/plugin-proposal-class-properties': 7.16.7_@babel+core@7.17.5
+      '@babel/plugin-proposal-decorators': 7.17.2_@babel+core@7.17.5
+      '@babel/plugin-proposal-private-methods': 7.16.11_@babel+core@7.17.5
+      '@babel/plugin-proposal-private-property-in-object': 7.16.7_@babel+core@7.17.5
+      '@babel/plugin-transform-runtime': 7.17.0_@babel+core@7.17.5
+      '@babel/preset-env': 7.16.11_@babel+core@7.17.5
+      '@babel/preset-react': 7.16.7_@babel+core@7.17.5
+      '@babel/preset-typescript': 7.16.7_@babel+core@7.17.5
+      '@babel/runtime': 7.17.2
+
+  packages/webpack:
+    specifiers:
+      '@babel/core': ^7.17.5
       '@pmmmwh/react-refresh-webpack-plugin': ^0.5.4
       '@svgr/webpack': ^6.2.1
       '@types/react': ^17.0.39
       '@types/react-dom': ^17.0.13
+      '@yueqing/babel-preset-react-app': workspace:^0.0.0
       autoprefixer: ^10.4.2
       babel-loader: ^8.2.3
       chalk: 4.x
@@ -60,19 +75,10 @@ importers:
       webpack-cli: ^4.9.2
       webpack-dev-server: ^4.7.4
     dependencies:
-      '@babel/cli': 7.17.6_@babel+core@7.17.5
       '@babel/core': 7.17.5
-      '@babel/plugin-proposal-class-properties': 7.16.7_@babel+core@7.17.5
-      '@babel/plugin-proposal-decorators': 7.17.2_@babel+core@7.17.5
-      '@babel/plugin-proposal-private-methods': 7.16.11_@babel+core@7.17.5
-      '@babel/plugin-proposal-private-property-in-object': 7.16.7_@babel+core@7.17.5
-      '@babel/plugin-transform-runtime': 7.17.0_@babel+core@7.17.5
-      '@babel/preset-env': 7.16.11_@babel+core@7.17.5
-      '@babel/preset-react': 7.16.7_@babel+core@7.17.5
-      '@babel/preset-typescript': 7.16.7_@babel+core@7.17.5
-      '@babel/runtime': 7.17.2
       '@pmmmwh/react-refresh-webpack-plugin': 0.5.4_4ea9e68ed3d3f7bd62695cb0566a7c54
       '@svgr/webpack': 6.2.1
+      '@yueqing/babel-preset-react-app': link:../babel-preset-react-app
       autoprefixer: 10.4.2_postcss@8.4.8
       babel-loader: 8.2.3_ed870ac3ba52c4ec230ba2bc3dbb311c
       chalk: 4.1.2
@@ -110,27 +116,6 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       '@jridgewell/trace-mapping': 0.3.4
-
-  /@babel/cli/7.17.6_@babel+core@7.17.5:
-    resolution: {integrity: sha512-l4w608nsDNlxZhiJ5tE3DbNmr61fIKMZ6fTBo171VEFuFMIYuJ3mHRhTLEkKKyvx2Mizkkv/0a8OJOnZqkKYNA==}
-    engines: {node: '>=6.9.0'}
-    hasBin: true
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.17.5
-      '@jridgewell/trace-mapping': 0.3.4
-      commander: 4.1.1
-      convert-source-map: 1.8.0
-      fs-readdir-recursive: 1.1.0
-      glob: 7.2.0
-      make-dir: 2.1.0
-      slash: 2.0.0
-      source-map: 0.5.7
-    optionalDependencies:
-      '@nicolo-ribaudo/chokidar-2': 2.1.8-no-fsevents.3
-      chokidar: 3.5.3
-    dev: false
 
   /@babel/code-frame/7.16.7:
     resolution: {integrity: sha512-iAXqUn8IIeBTNd72xsFlgaXHkMBMt6y4HJp1tIaK465CWLT/fG1aqB7ykr95gHHmlBdGbFeWWfyB4NJJ0nmeIg==}
@@ -1606,12 +1591,6 @@ packages:
     resolution: {integrity: sha512-z3UzXqOjrgUnKENwdhFZmU7oeEWTOjUmWGQtXTOEbTR1FdwSBF6RCU6RPkv10ryP00y5ybCUm++4t5B8Wc3tPg==}
     dev: true
 
-  /@nicolo-ribaudo/chokidar-2/2.1.8-no-fsevents.3:
-    resolution: {integrity: sha512-s88O1aVtXftvp5bCPB7WnmXc5IwOZZ7YPuwNPt+GtOOXpPvad1LfbmjYv+qII7zP6RU2QGnqve27dnLycEnyEQ==}
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -2966,11 +2945,6 @@ packages:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
     dev: false
 
-  /commander/4.1.1:
-    resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
-    engines: {node: '>= 6'}
-    dev: false
-
   /commander/7.2.0:
     resolution: {integrity: sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==}
     engines: {node: '>= 10'}
@@ -4311,10 +4285,6 @@ packages:
     resolution: {integrity: sha512-cybjIfiiE+pTWicSCLFHSrXZ6EilF30oh91FDP9S2B051prEa7QWfrVTQm10/dDpswBDXZugPa1Ogu8Yh+HV0Q==}
     dev: false
 
-  /fs-readdir-recursive/1.1.0:
-    resolution: {integrity: sha512-GNanXlVr2pf02+sPN40XN8HG+ePaNcvM0q5mZBd668Obwb0yD5GiUbZOFgwn8kGMY6I3mdyDJzieUy3PTYyTRA==}
-    dev: false
-
   /fs.realpath/1.0.0:
     resolution: {integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=}
 
@@ -5272,14 +5242,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
-
-  /make-dir/2.1.0:
-    resolution: {integrity: sha512-LS9X+dc8KLxXCb8dni79fLIIUA5VyZoyjSMCwTluaXA0o27cCK0bhXkpgw+sTXVpPy/lSO57ilRixqk0vDmtRA==}
-    engines: {node: '>=6'}
-    dependencies:
-      pify: 4.0.1
-      semver: 5.7.1
-    dev: false
 
   /make-dir/3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
@@ -6742,6 +6704,7 @@ packages:
   /semver/5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}
     hasBin: true
+    dev: true
 
   /semver/6.3.0:
     resolution: {integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==}
@@ -6857,11 +6820,6 @@ packages:
 
   /signal-exit/3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
-
-  /slash/2.0.0:
-    resolution: {integrity: sha512-ZYKh3Wh2z1PpEXWr0MpSBZ0V6mZHAQfYevttO11c51CaWjGTaadiKZ+wVt1PbMlDV5qhMFslpZCemhwOK7C89A==}
-    engines: {node: '>=6'}
-    dev: false
 
   /slash/3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}

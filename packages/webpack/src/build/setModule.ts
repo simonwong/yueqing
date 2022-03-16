@@ -13,34 +13,13 @@ const getModuleBase = (
     use: [
       {
         loader: require.resolve('babel-loader'),
-        // TODO: 抽成一个 babel preset
         options: {
           cacheDirectory: true,
+          cacheCompression: false,
           babelrc: false,
-          presets: [
-            '@babel/preset-env',
-            '@babel/preset-typescript',
-            [
-              '@babel/preset-react',
-              {
-                runtime: 'automatic',
-              },
-            ],
-          ],
+          presets: [require.resolve('@yueqing/babel-preset-react-app')],
           plugins: [
             ctx.isDevelopmentEnv && require.resolve('react-refresh/babel'),
-            '@babel/plugin-transform-runtime',
-            // TC39 Proposals: 使用装饰器 @xxx
-            ['@babel/plugin-proposal-decorators', false],
-            // ES2022: 类属性 class Foo { name = 'foo'; static getName = ... }
-            ['@babel/plugin-proposal-class-properties', { loose: true }],
-            // ES2022: 私有属性 class Foo { #name = 'foo'; getName = () => this.#name }
-            [
-              '@babel/plugin-proposal-private-property-in-object',
-              { loose: true },
-            ],
-            // TC39 Proposals: 私有方法
-            ['@babel/plugin-proposal-private-methods', { loose: true }],
           ].filter(Boolean),
         },
       },
