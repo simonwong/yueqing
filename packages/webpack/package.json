@@ -31,7 +31,7 @@
     "@yueqing/babel-preset-react-app": "workspace:^0.1.0",
     "autoprefixer": "^10.4.2",
     "babel-loader": "^8.2.3",
-    "chalk": "4.x",
+    "chalk": "5.x",
     "clean-webpack-plugin": "^4.0.0",
     "commander": "^9.0.0",
     "css-loader": "^6.7.0",
