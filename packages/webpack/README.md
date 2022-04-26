@@ -2,8 +2,6 @@
 
 @yueqing/webpack is a webpack cli, out-of-box.
 
-一个 webpack 打包工具，开箱即用
-
 ## Usage
 
 **Install**
