@@ -15,11 +15,11 @@
     "ci:publish": "pnpm build && changeset publish"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.4.3",
-    "@changesets/cli": "^2.21.1",
-    "@yueqing/lint": "^2.1.1",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.3.5"
+    "@changesets/changelog-github": "^0.4.5",
+    "@changesets/cli": "^2.23.0",
+    "@yueqing/lint": "^2.3.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.1"
   },
   "lint-staged": {
     "**/*.{js,ts}": [
