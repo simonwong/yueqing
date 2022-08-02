@@ -3,8 +3,8 @@ import { Command } from 'commander'
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import chalk from 'chalk'
+import { openBrowser } from '@yueqing/dev-utils'
 import { getPkg, getContext } from './helper'
-
 import { getConfig } from './build/getConfig'
 
 const pkg = getPkg()
@@ -37,11 +37,10 @@ export const developmentBuildWithDevServer = async () => {
   }
   const server = new WebpackDevServer(devServerOptions, compiler)
   await server.start()
-  console.log(
-    `\n${cliVersion} Starting server on ${chalk.cyan(
-      `http://localhost:${PORT}`,
-    )}\n`,
-  )
+
+  const localUrl = `http://localhost:${PORT}`
+  console.log(`\n${cliVersion} Starting server on ${chalk.cyan(localUrl)}\n`)
+  openBrowser(localUrl)
 }
 
 export const productionBuild = () => {
