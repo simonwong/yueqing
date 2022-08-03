@@ -17,8 +17,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "rm -rf ./lib && tsc -p tsconfig.json && cp ./src/openChrome.applescript ./lib/openChrome.applescript",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf ./lib && tsc -p tsconfig.json && cp ./src/openChrome.applescript ./lib/openChrome.applescript"
   },
   "dependencies": {
     "open": "^8.4.0"
