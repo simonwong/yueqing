@@ -1,5 +1,11 @@
 # @yueqing/webpack
 
+## 1.6.0
+
+### Minor Changes
+
+- [`8dce71b`](https://github.com/simonwong/yueqing/commit/8dce71b93f5d64f41556fbe33f5409747a848095) Thanks [@simonwong](https://github.com/simonwong)! - support css、css module、sass、sass module
+
 ## 1.5.1
 
 ### Patch Changes
