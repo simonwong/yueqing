@@ -1,5 +1,15 @@
 # @yueqing/webpack
 
+## 1.5.1
+
+### Patch Changes
+
+- [#38](https://github.com/simonwong/yueqing/pull/38) [`b1e56a4`](https://github.com/simonwong/yueqing/commit/b1e56a44a5df98afd1683ef4eed6ce45b04b3c23) Thanks [@simonwong](https://github.com/simonwong)! - update packages, use openBrowser
+
+- Updated dependencies [[`b1e56a4`](https://github.com/simonwong/yueqing/commit/b1e56a44a5df98afd1683ef4eed6ce45b04b3c23), [`e1be8aa`](https://github.com/simonwong/yueqing/commit/e1be8aafb5aca35a0a1cdf4ac7d128ffe4b578be)]:
+  - @yueqing/babel-preset-react-app@0.1.1
+  - @yueqing/dev-utils@0.1.0
+
 ## 1.5.0
 
 ### Minor Changes
