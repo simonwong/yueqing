@@ -34,7 +34,7 @@
     "babel-loader": "^8.2.5",
     "chalk": "4.x",
     "clean-webpack-plugin": "^4.0.0",
-    "commander": "^9.4.0",
+    "commander": "^10.0.0",
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.0.0",
     "file-loader": "^6.2.0",
