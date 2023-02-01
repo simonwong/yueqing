@@ -27,8 +27,9 @@
       "eslint --fix --format=pretty"
     ]
   },
+  "packageManager": "pnpm@7.26.3",
   "engines": {
-    "node": ">=14",
-    "pnpm": ">=6"
+    "node": ">=16",
+    "pnpm": ">=7"
   }
 }
