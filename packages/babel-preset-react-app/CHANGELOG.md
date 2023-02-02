@@ -1,5 +1,11 @@
 # @yueqing/babel-preset-react-app
 
+## 0.1.2
+
+### Patch Changes
+
+- [#61](https://github.com/simonwong/yueqing/pull/61) [`fdbafde`](https://github.com/simonwong/yueqing/commit/fdbafde0347ea9995464328eef6c55f2ca9aef75) Thanks [@simonwong](https://github.com/simonwong)! - Update packages to latest
+
 ## 0.1.1
 
 ### Patch Changes
