@@ -1,6 +1,6 @@
 {
   "name": "@yueqing/babel-preset-react-app",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "babel preset for yueqing webpack",
   "main": "./lib/index.js",
   "repository": {
