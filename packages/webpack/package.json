@@ -32,7 +32,7 @@
     "@yueqing/dev-utils": "workspace:^0.1.1",
     "autoprefixer": "^10.4.13",
     "babel-loader": "^9.1.2",
-    "chalk": "4.x",
+    "chalk": "5.x",
     "clean-webpack-plugin": "^4.0.0",
     "commander": "^10.0.0",
     "css-loader": "^6.7.3",
