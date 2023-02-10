@@ -1,5 +1,11 @@
 # @yueqing/webpack
 
+## 1.6.2
+
+### Patch Changes
+
+- [`93c7139`](https://github.com/simonwong/yueqing/commit/93c71399298e3a7c532d352c023b74dc05f2fa04) Thanks [@simonwong](https://github.com/simonwong)! - change devtool to cheap-module-source-map
+
 ## 1.6.1
 
 ### Patch Changes
