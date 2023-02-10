@@ -16,8 +16,7 @@ const getBasicBase: GetConfig = ({ userConfig, nodeEnv }) => ({
 export const setBasic: () => SetConfigHelp = () => ({
   development: ctx => ({
     ...getBasicBase(ctx),
-    // https://www.webpackjs.com/guides/build-performance/#devtool
-    devtool: 'eval-cheap-module-source-map',
+    devtool: 'cheap-module-source-map',
     devServer: {
       historyApiFallback: true,
       hot: true,
